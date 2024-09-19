@@ -19,16 +19,16 @@ export const TodoStorage = {
 
     toggle: (id: number): void => {
         const todoList = TodoStorage.getAll();
-        const todo = TodoStorage.getTodo(id);
-        if (todo) {
-            todo.isDone = !todo.isDone;
+        const todoIndex = todoList.todos.findIndex(t => t.id === id);
+        if (todoIndex !== -1) {
+            todoList.todos[todoIndex].isDone = !todoList.todos[todoIndex].isDone;
             localStorage.setItem('todos', JSON.stringify(todoList.todos));
         }
     },
 
     remove: (id: number): void => {
         const todoList = TodoStorage.getAll();
-        todoList.todos = todoList.todos.filter(t => t.id === id);
+        todoList.todos = todoList.todos.filter(t => t.id !== id);
         localStorage.setItem('todos', JSON.stringify(todoList.todos));
     },
 

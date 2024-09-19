@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "My Todo List",
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className='antialiased'
+        className='antialiased bg-slate-900 flex flex-col items-center min-h-screen'
       >
         {children}
       </body>

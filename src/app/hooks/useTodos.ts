@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
-import { Todo, TodoList } from "@/app/interfaces/Todo";
+import { TodoList } from "@/app/interfaces/Todo";
 import { TodoStorage } from "@/app/services/todoStorage";
 
 export const useTodos = () => {
-    const [todoList, setTodoList] = useState<TodoList>({todos: []});
+    const [todoList, setTodoList] = useState<TodoList>({ todos: [] });
 
     useEffect(() => {
         setTodoList(TodoStorage.getAll());
     }, []);
 
     const addTodo = (title: string) => {
-        const newTodo: Todo = {
+        TodoStorage.add({
             id: TodoStorage.getLastTodoId() + 1,
             title,
-            isDone: false,
-        };
-        TodoStorage.add(newTodo);
+            isDone: false
+        });
         setTodoList(TodoStorage.getAll());
     };
 
@@ -27,7 +26,7 @@ export const useTodos = () => {
     const removeTodo = (id: number) => {
         TodoStorage.remove(id);
         setTodoList(TodoStorage.getAll());
-    }
+    };
 
-    return { todos: todoList, addTodo, toggleTodo, removeTodo };
-}
+    return { todoList, addTodo, toggleTodo, removeTodo };
+};
